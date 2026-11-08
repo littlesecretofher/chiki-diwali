@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#160c2c">
+
 <title>Happy Diwali, Chiki ❤️</title>
 
 <style>
@@ -79,7 +80,7 @@ button:hover {
   display: none !important;
 }
 
-/* Floating text symbols, not images */
+/* Floating text decorations */
 .sparkle {
   position: fixed;
   bottom: -40px;
@@ -94,44 +95,112 @@ button:hover {
     transform: translateY(0) rotate(0deg);
     opacity: 0;
   }
-  15% { opacity: .8; }
+
+  15% {
+    opacity: .8;
+  }
+
   to {
     transform: translateY(-115vh) rotate(240deg);
     opacity: 0;
   }
 }
 
+/* =================================
+   ROMANTIC RED THREAD PHOTO GALLERY
+================================= */
+
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit, minmax(min(100%, 220px), 1fr)
-  );
-  gap: 18px;
-  margin: 28px auto;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 32px 25px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px 10px;
 }
 
+/* Red connecting thread */
+.gallery::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  width: 90%;
+  height: 3px;
+  background: #d62839;
+  box-shadow: 0 0 10px #ff334f;
+  z-index: 0;
+  transform: rotate(-2deg);
+  border-radius: 50%;
+}
+
+/* Photo cards */
 .photo-card {
-  padding: 9px;
-  border: 1px solid #d9a64c;
-  border-radius: 16px;
-  background: #ffffff08;
+  position: relative;
+  z-index: 1;
+  width: min(260px, 100%);
+  padding: 10px;
+  background: #fff8ee;
+  border: 2px solid #e7b5a0;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px #0005;
+  transform: rotate(-2deg);
+  transition: transform .3s;
 }
 
+.photo-card:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.photo-card:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+
+/* Original photo proportions preserved */
 .gallery img {
   display: block;
   width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 10px;
-  background: #241333;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 5px;
+  background: #eee5dc;
 }
 
+/* Photo captions */
 .photo-caption {
-  color: #ffcf70;
-  padding: 10px 4px 3px;
+  color: #8c2435;
+  padding: 12px 4px 4px;
+  font-size: 15px;
+  font-weight: bold;
   overflow-wrap: anywhere;
 }
 
+/* Red thread connection points */
+.photo-card::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  background: #d62839;
+  border: 2px solid #ffccd2;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px #ff334f;
+}
+
+/* Loading and error text */
+#photoStatus {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+/* Final message */
 .message {
   border: 1px solid #d9a64c;
   border-radius: 20px;
@@ -140,15 +209,29 @@ button:hover {
   margin: 25px auto;
 }
 
-#photoStatus {
-  font-size: 15px;
-  overflow-wrap: anywhere;
-}
-
 footer {
   margin-top: 25px;
   color: #ffcf70;
   font-size: 14px;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 600px) {
+  .gallery {
+    gap: 30px 12px;
+  }
+
+  .gallery::before {
+    transform: rotate(0deg);
+    width: 3px;
+    height: 90%;
+    left: 50%;
+    top: 5%;
+  }
+
+  .photo-card {
+    width: min(280px, 90%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -164,9 +247,13 @@ footer {
 
 <div id="sparkles" aria-hidden="true"></div>
 
+<!-- WELCOME SCREEN -->
+
 <section id="welcome">
   <div class="content">
+
     <h1>🪔 Happy Diwali 🪔</h1>
+
     <h2>Hey Chiki! ❤️</h2>
 
     <p>
@@ -176,12 +263,19 @@ footer {
 
     <p>Ready to open it? ✨</p>
 
-    <button id="openButton">Open Your Surprise 🎁</button>
+    <button id="openButton">
+      Open Your Surprise 🎁
+    </button>
+
   </div>
 </section>
 
+
+<!-- PHOTO SURPRISE SCREEN -->
+
 <section id="surprise" class="hidden">
   <div class="content">
+
     <h1>A Little Surprise for You ❤️</h1>
 
     <p>
@@ -198,15 +292,23 @@ footer {
 
     <div id="photoGallery" class="gallery"></div>
 
-    <button id="messageButton">One More Thing... 💌</button>
+    <button id="messageButton">
+      One More Thing... 💌
+    </button>
+
   </div>
 </section>
 
+
+<!-- FINAL MESSAGE SCREEN -->
+
 <section id="final" class="hidden">
   <div class="content">
+
     <h1>Dear Chiki ❤️</h1>
 
     <div class="message">
+
       <p>
         May this Diwali bring you happiness,
         peace, and beautiful memories.
@@ -229,195 +331,342 @@ footer {
       <p>
         Keep smiling and keep being yourself. ❤️
       </p>
+
     </div>
 
-    <footer>Made with ❤️ and Diwali wishes.</footer>
+    <footer>
+      Made with ❤️ and Diwali wishes.
+    </footer>
 
-    <button id="backButton">Read It Again ↩</button>
+    <button id="backButton">
+      Read It Again ↩
+    </button>
+
   </div>
 </section>
 
+
 <script>
-/*
-  IMPORTANT:
-  Replace these two values with your GitHub details.
 
-  Example:
-  const GITHUB_OWNER = "myusername";
-  const GITHUB_REPO = "chiki-diwali";
-*/
-const GITHUB_OWNER = "littlesecretofher";
-const GITHUB_REPO = "chiki-diwali";
-const GITHUB_BRANCH = "main";
-const PHOTO_FOLDER = "photos";
-
-const gallery = document.getElementById("photoGallery");
-const photoStatus = document.getElementById("photoStatus");
-
-let photosLoaded = false;
-let loadingPhotos = false;
+/* =================================
+   WEBSITE NAVIGATION
+================================= */
 
 function showSection(sectionId) {
+
   ["welcome", "surprise", "final"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
 
   document.getElementById(sectionId).classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
 }
 
 document.getElementById("openButton").addEventListener("click", () => {
+
   showSection("surprise");
+
   loadPhotos();
+
 });
 
 document.getElementById("messageButton").addEventListener("click", () => {
+
   showSection("final");
+
 });
 
 document.getElementById("backButton").addEventListener("click", () => {
+
   showSection("surprise");
+
 });
 
-// Automatically discover image files inside the GitHub folder.
+
+/* =================================
+   GITHUB AUTOMATIC PHOTO DETECTION
+================================= */
+
+// Your GitHub details
+
+const GITHUB_OWNER = "littlesecretofher";
+
+const GITHUB_REPO = "chiki-diwali";
+
+const GITHUB_BRANCH = "main";
+
+const PHOTO_FOLDER = "photos";
+
+
+const gallery = document.getElementById("photoGallery");
+
+const photoStatus = document.getElementById("photoStatus");
+
+let loadingPhotos = false;
+
+
+// Automatically find photos inside GitHub folder
+
 async function loadPhotos() {
+
   if (loadingPhotos) return;
 
   loadingPhotos = true;
+
   photoStatus.textContent = "Looking for your photos... ❤️";
+
   gallery.replaceChildren();
 
   try {
+
     if (
-      GITHUB_OWNER === "YOUR_GITHUB_USERNAME" ||
       !GITHUB_OWNER.trim() ||
       !GITHUB_REPO.trim()
     ) {
-      throw new Error("Please configure your GitHub username and repository name in index.html.");
+
+      throw new Error("GitHub settings are missing.");
+
     }
 
     const allFiles = [];
+
     let page = 1;
 
     while (true) {
+
       const endpoint =
+
         "https://api.github.com/repos/" +
+
         encodeURIComponent(GITHUB_OWNER) + "/" +
+
         encodeURIComponent(GITHUB_REPO) +
+
         "/contents/" + PHOTO_FOLDER +
+
         "?ref=" + encodeURIComponent(GITHUB_BRANCH) +
+
         "&per_page=100&page=" + page;
 
+
       const response = await fetch(endpoint, {
+
         headers: {
+
           "Accept": "application/vnd.github+json"
+
         },
+
         cache: "no-store"
+
       });
 
+
       if (!response.ok) {
+
         if (response.status === 404) {
-          throw new Error("Folder not found. Create a public photos folder in your repository.");
+
+          throw new Error(
+            "Photos folder not found. Create a public photos folder in GitHub."
+          );
+
         }
 
         if (response.status === 403) {
-          throw new Error("GitHub API limit reached. Please try again later.");
+
+          throw new Error(
+            "GitHub API limit reached. Please try again later."
+          );
+
         }
 
-        throw new Error("GitHub returned error " + response.status + ".");
+        throw new Error(
+          "GitHub returned error " + response.status
+        );
+
       }
+
 
       const data = await response.json();
 
+
       if (!Array.isArray(data)) {
+
         throw new Error("The photos path must be a folder.");
+
       }
+
 
       allFiles.push(...data);
 
+
       if (data.length < 100) break;
+
       page++;
+
     }
 
+
+    // Supported image formats
+
     const imageFiles = allFiles
+
       .filter(file => {
+
         if (file.type !== "file") return false;
 
         return /\.(jpe?g|png|gif|webp|avif)$/i.test(file.name);
+
       })
+
       .sort((a, b) =>
-        a.name.localeCompare(b.name, undefined, {
-          numeric: true,
-          sensitivity: "base"
-        })
+
+        a.name.localeCompare(
+          b.name,
+          undefined,
+          {
+            numeric: true,
+            sensitivity: "base"
+          }
+        )
+
       );
 
+
     if (imageFiles.length === 0) {
+
       photoStatus.textContent =
         "No photos yet. Upload JPG, PNG, GIF, WEBP or AVIF files to your photos folder. ❤️";
-      photosLoaded = true;
+
       return;
+
     }
 
+
+    // Display every detected photo
+
     imageFiles.forEach((file, index) => {
+
       const card = document.createElement("div");
+
       card.className = "photo-card";
 
+
       const img = document.createElement("img");
+
       img.src = file.download_url;
-      img.alt = "Photo " + (index + 1);
+
+      img.alt = "Chiki's memory " + (index + 1);
+
       img.loading = "lazy";
+
       img.decoding = "async";
 
+
       const caption = document.createElement("div");
+
       caption.className = "photo-caption";
-      caption.textContent = "Memory " + (index + 1) + " ❤️";
+
+      caption.textContent = "A little memory of Chiki ❤️";
+
 
       img.addEventListener("error", () => {
+
         card.remove();
+
       });
 
+
       card.append(img, caption);
+
       gallery.appendChild(card);
+
     });
 
+
     photoStatus.textContent =
-      imageFiles.length + " lovely photo" +
+
+      imageFiles.length +
+
+      " lovely photo" +
+
       (imageFiles.length === 1 ? "" : "s") +
+
       " found! ❤️";
 
-    photosLoaded = true;
 
   } catch (error) {
+
     console.error(error);
+
     photoStatus.textContent = error.message;
+
   } finally {
+
     loadingPhotos = false;
+
   }
+
 }
 
-// Floating text decorations only — no image assets.
+
+/* =================================
+   FLOATING TEXT SPARKLES
+================================= */
+
 const symbols = ["✦", "✧", "·", "✺"];
 
+
 function createSparkle() {
+
   const sparkle = document.createElement("span");
+
   sparkle.className = "sparkle";
+
   sparkle.textContent =
+
     symbols[Math.floor(Math.random() * symbols.length)];
 
+
   sparkle.style.left = Math.random() * 100 + "vw";
-  sparkle.style.fontSize = (12 + Math.random() * 18) + "px";
-  sparkle.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+  sparkle.style.fontSize =
+
+    (12 + Math.random() * 18) + "px";
+
+
+  sparkle.style.animationDuration =
+
+    (5 + Math.random() * 5) + "s";
+
 
   document.getElementById("sparkles").appendChild(sparkle);
 
-  sparkle.addEventListener("animationend", () => sparkle.remove());
+
+  sparkle.addEventListener("animationend", () => {
+
+    sparkle.remove();
+
+  });
+
 }
 
+
+// Respect reduced motion settings
+
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+
   setInterval(createSparkle, 450);
+
 }
+
 </script>
 
 </body>
 </html>
+
