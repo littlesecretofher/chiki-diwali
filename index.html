@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#160c2c">
+<title>Happy Diwali, Chiki ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #160c2c, #321044, #130b20);
+  color: white;
+  font-family: Georgia, serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  padding: 35px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  color: #ffd477;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  margin-bottom: 22px;
+  text-shadow: 0 0 18px #ffae35;
+}
+
+h2 {
+  color: #ffcf70;
+  margin: 24px 0 16px;
+}
+
+p {
+  max-width: 650px;
+  margin: 14px auto;
+  color: #fcebd1;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+button {
+  margin: 22px 5px;
+  padding: 14px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #ffb52e, #ffe09a);
+  color: #35102a;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .25s;
+}
+
+button:hover {
+  transform: scale(1.04);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Floating text symbols, not images */
+.sparkle {
+  position: fixed;
+  bottom: -40px;
+  color: #ffd477;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% { opacity: .8; }
+  to {
+    transform: translateY(-115vh) rotate(240deg);
+    opacity: 0;
+  }
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit, minmax(min(100%, 220px), 1fr)
+  );
+  gap: 18px;
+  margin: 28px auto;
+}
+
+.photo-card {
+  padding: 9px;
+  border: 1px solid #d9a64c;
+  border-radius: 16px;
+  background: #ffffff08;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #241333;
+}
+
+.photo-caption {
+  color: #ffcf70;
+  padding: 10px 4px 3px;
+  overflow-wrap: anywhere;
+}
+
+.message {
+  border: 1px solid #d9a64c;
+  border-radius: 20px;
+  padding: 26px 20px;
+  background: #ffffff08;
+  margin: 25px auto;
+}
+
+#photoStatus {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  margin-top: 25px;
+  color: #ffcf70;
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="sparkles" aria-hidden="true"></div>
+
+<section id="welcome">
+  <div class="content">
+    <h1>🪔 Happy Diwali 🪔</h1>
+    <h2>Hey Chiki! ❤️</h2>
+
+    <p>
+      Someone has prepared a little surprise
+      especially for you...
+    </p>
+
+    <p>Ready to open it? ✨</p>
+
+    <button id="openButton">Open Your Surprise 🎁</button>
+  </div>
+</section>
+
+<section id="surprise" class="hidden">
+  <div class="content">
+    <h1>A Little Surprise for You ❤️</h1>
+
+    <p>
+      Chiki, I wanted to send you something a little
+      different this Diwali. Here's a little corner
+      filled with good wishes and lovely memories.
+    </p>
+
+    <h2>Your Photo Gallery ✨</h2>
+
+    <p id="photoStatus" role="status" aria-live="polite">
+      Looking for your photos... ❤️
+    </p>
+
+    <div id="photoGallery" class="gallery"></div>
+
+    <button id="messageButton">One More Thing... 💌</button>
+  </div>
+</section>
+
+<section id="final" class="hidden">
+  <div class="content">
+    <h1>Dear Chiki ❤️</h1>
+
+    <div class="message">
+      <p>
+        May this Diwali bring you happiness,
+        peace, and beautiful memories.
+      </p>
+
+      <p>
+        May your days be bright, your dreams come
+        closer, and may you always have a reason
+        to smile.
+      </p>
+
+      <p>
+        You deserve so many wonderful things.
+        I hope this little surprise makes your
+        day a bit brighter. ✨
+      </p>
+
+      <h2>Happy Diwali, Chiki! 🪔</h2>
+
+      <p>
+        Keep smiling and keep being yourself. ❤️
+      </p>
+    </div>
+
+    <footer>Made with ❤️ and Diwali wishes.</footer>
+
+    <button id="backButton">Read It Again ↩</button>
+  </div>
+</section>
+
+<script>
+/*
+  IMPORTANT:
+  Replace these two values with your GitHub details.
+
+  Example:
+  const GITHUB_OWNER = "myusername";
+  const GITHUB_REPO = "chiki-diwali";
+*/
+const GITHUB_OWNER = "YOUR_GITHUB_USERNAME";
+const GITHUB_REPO = "chiki-diwali";
+const GITHUB_BRANCH = "main";
+const PHOTO_FOLDER = "photos";
+
+const gallery = document.getElementById("photoGallery");
+const photoStatus = document.getElementById("photoStatus");
+
+let photosLoaded = false;
+let loadingPhotos = false;
+
+function showSection(sectionId) {
+  ["welcome", "surprise", "final"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+
+  document.getElementById(sectionId).classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("openButton").addEventListener("click", () => {
+  showSection("surprise");
+  loadPhotos();
+});
+
+document.getElementById("messageButton").addEventListener("click", () => {
+  showSection("final");
+});
+
+document.getElementById("backButton").addEventListener("click", () => {
+  showSection("surprise");
+});
+
+// Automatically discover image files inside the GitHub folder.
+async function loadPhotos() {
+  if (loadingPhotos) return;
+
+  loadingPhotos = true;
+  photoStatus.textContent = "Looking for your photos... ❤️";
+  gallery.replaceChildren();
+
+  try {
+    if (
+      GITHUB_OWNER === "YOUR_GITHUB_USERNAME" ||
+      !GITHUB_OWNER.trim() ||
+      !GITHUB_REPO.trim()
+    ) {
+      throw new Error("Please configure your GitHub username and repository name in index.html.");
+    }
+
+    const allFiles = [];
+    let page = 1;
+
+    while (true) {
+      const endpoint =
+        "https://api.github.com/repos/" +
+        encodeURIComponent(GITHUB_OWNER) + "/" +
+        encodeURIComponent(GITHUB_REPO) +
+        "/contents/" + PHOTO_FOLDER +
+        "?ref=" + encodeURIComponent(GITHUB_BRANCH) +
+        "&per_page=100&page=" + page;
+
+      const response = await fetch(endpoint, {
+        headers: {
+          "Accept": "application/vnd.github+json"
+        },
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error("Folder not found. Create a public photos folder in your repository.");
+        }
+
+        if (response.status === 403) {
+          throw new Error("GitHub API limit reached. Please try again later.");
+        }
+
+        throw new Error("GitHub returned error " + response.status + ".");
+      }
+
+      const data = await response.json();
+
+      if (!Array.isArray(data)) {
+        throw new Error("The photos path must be a folder.");
+      }
+
+      allFiles.push(...data);
+
+      if (data.length < 100) break;
+      page++;
+    }
+
+    const imageFiles = allFiles
+      .filter(file => {
+        if (file.type !== "file") return false;
+
+        return /\.(jpe?g|png|gif|webp|avif)$/i.test(file.name);
+      })
+      .sort((a, b) =>
+        a.name.localeCompare(b.name, undefined, {
+          numeric: true,
+          sensitivity: "base"
+        })
+      );
+
+    if (imageFiles.length === 0) {
+      photoStatus.textContent =
+        "No photos yet. Upload JPG, PNG, GIF, WEBP or AVIF files to your photos folder. ❤️";
+      photosLoaded = true;
+      return;
+    }
+
+    imageFiles.forEach((file, index) => {
+      const card = document.createElement("div");
+      card.className = "photo-card";
+
+      const img = document.createElement("img");
+      img.src = file.download_url;
+      img.alt = "Photo " + (index + 1);
+      img.loading = "lazy";
+      img.decoding = "async";
+
+      const caption = document.createElement("div");
+      caption.className = "photo-caption";
+      caption.textContent = "Memory " + (index + 1) + " ❤️";
+
+      img.addEventListener("error", () => {
+        card.remove();
+      });
+
+      card.append(img, caption);
+      gallery.appendChild(card);
+    });
+
+    photoStatus.textContent =
+      imageFiles.length + " lovely photo" +
+      (imageFiles.length === 1 ? "" : "s") +
+      " found! ❤️";
+
+    photosLoaded = true;
+
+  } catch (error) {
+    console.error(error);
+    photoStatus.textContent = error.message;
+  } finally {
+    loadingPhotos = false;
+  }
+}
+
+// Floating text decorations only — no image assets.
+const symbols = ["✦", "✧", "·", "✺"];
+
+function createSparkle() {
+  const sparkle = document.createElement("span");
+  sparkle.className = "sparkle";
+  sparkle.textContent =
+    symbols[Math.floor(Math.random() * symbols.length)];
+
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.fontSize = (12 + Math.random() * 18) + "px";
+  sparkle.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+  document.getElementById("sparkles").appendChild(sparkle);
+
+  sparkle.addEventListener("animationend", () => sparkle.remove());
+}
+
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  setInterval(createSparkle, 450);
+}
+</script>
+
+</body>
+</html>
